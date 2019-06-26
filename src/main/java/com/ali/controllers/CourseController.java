@@ -1,5 +1,6 @@
 package com.ali.controllers;
 
+import com.ali.exceptions.CourseNotFoundException;
 import com.ali.models.Course;
 import com.ali.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,13 @@ public class CourseController {
         return courseService.getCourses();
     }
 
-    @GetMapping("/courses/{id}")
-    public Course getCourse(@PathVariable Integer id) {
-        return courseService.getCourse(id);
+    @GetMapping("/courses/{code}")
+    public Course getCourse(@PathVariable Integer code) {
+        Course course = courseService.getCourse(code);
+        if (course==null){
+            throw  new CourseNotFoundException("Code: " + code);
+        }
+        return course;
     }
 
     @PostMapping("/courses")
@@ -36,7 +41,7 @@ public class CourseController {
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{id}")
+                .path("/{code}")
                 .buildAndExpand(course1.getCode()).toUri();
         return ResponseEntity.created(uri).build();
     }
