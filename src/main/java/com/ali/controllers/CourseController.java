@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
 public class CourseController {
 
     @Autowired
-    CourseService courseService;
+    private CourseService courseService;
 
     @GetMapping("/courses")
     public List<Course> getCourses() {
@@ -36,7 +37,7 @@ public class CourseController {
     }
 
     @PostMapping("/courses")
-    public ResponseEntity addCourse(@RequestBody Course course) {
+    public ResponseEntity addCourse(@Valid @RequestBody Course course) {
         Course course1 = courseService.addCourse(course);
 
         URI uri = ServletUriComponentsBuilder
@@ -44,6 +45,14 @@ public class CourseController {
                 .path("/{code}")
                 .buildAndExpand(course1.getCode()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @DeleteMapping("/courses/{code}")
+    public void deleteCourse(@PathVariable Integer code) {
+        Course course = courseService.deleteCourse(code);
+        if (course==null){
+            throw  new CourseNotFoundException("Code: " + code);
+        }
     }
 
 }

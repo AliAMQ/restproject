@@ -1,12 +1,17 @@
 package com.ali.models;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
 /**
  * Created by alireza on 6/25/19.
  */
 public class Course {
 
-    Integer code;
-    String title;
+    private Integer code;
+
+    @Size(min = 3, message = "Code should have at least 3 characters")
+    private String title;
 
     public Course() {
     }

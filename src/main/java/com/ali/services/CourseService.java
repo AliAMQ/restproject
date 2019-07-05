@@ -35,7 +35,17 @@ public class CourseService {
 
     public Course getCourse (int code) {
         for (Course course: courses){
-            if (course.getCode().equals(code)){
+            if (course.getCode()==code){
+                return course;
+            }
+        }
+        return null;
+    }
+
+    public Course deleteCourse (int code) {
+        for (Course course: courses){
+            if (course.getCode()==code){
+                courses.remove(course);
                 return course;
             }
         }
