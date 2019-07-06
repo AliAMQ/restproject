@@ -1,16 +1,21 @@
 package com.ali.models;
 
-import javax.validation.constraints.Min;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.Size;
 
 /**
  * Created by alireza on 6/25/19.
  */
+@ApiModel(description = "Course Details")
 public class Course {
 
+    @JsonIgnore
     private Integer code;
 
     @Size(min = 3, message = "Code should have at least 3 characters")
+    @ApiModelProperty(notes = "At least 3 characters")
     private String title;
 
     public Course() {
