@@ -3,15 +3,24 @@ package com.ali.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Size;
 
 /**
  * Created by alireza on 6/25/19.
  */
 @ApiModel(description = "Course Details")
+@Entity
 public class Course {
 
     @JsonIgnore
+    @Id
+    @GeneratedValue
+    private Integer id;
+
     private Integer code;
 
     @Size(min = 3, message = "Code should have at least 3 characters")
@@ -24,6 +33,14 @@ public class Course {
     public Course(int code, String title) {
         this.code = code;
         this.title = title;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getCode() {
@@ -45,7 +62,8 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-                "code=" + code +
+                "id=" + id +
+                ", code=" + code +
                 ", title='" + title + '\'' +
                 '}';
     }

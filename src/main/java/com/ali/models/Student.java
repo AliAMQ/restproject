@@ -1,6 +1,8 @@
 package com.ali.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
+@ApiModel(description = "Student Details")
 @Entity
 public class Student {
 
@@ -16,6 +19,7 @@ public class Student {
     @JsonIgnore
     private Integer id;
 
+    @ApiModelProperty(notes = "Between 3-15 characters")
     @Size(min = 3, max =15 , message = "Firstname should be between 3-15 characters")
     private String firstname;
 
