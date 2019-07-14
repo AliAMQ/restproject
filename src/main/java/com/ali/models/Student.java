@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
@@ -24,6 +22,11 @@ public class Student {
     private String firstname;
 
     private String lastname;
+
+    //Assuming each student may have just one course
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Course course;
 
     public Student() {
     }
@@ -55,6 +58,14 @@ public class Student {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     @Override

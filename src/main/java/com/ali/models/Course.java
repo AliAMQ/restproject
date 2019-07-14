@@ -7,7 +7,9 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * Created by alireza on 6/25/19.
@@ -26,6 +28,9 @@ public class Course {
     @Size(min = 3, message = "Code should have at least 3 characters")
     @ApiModelProperty(notes = "At least 3 characters")
     private String title;
+
+    @OneToMany(mappedBy = "course")
+    private List<Student> studentList;
 
     public Course() {
     }
@@ -57,6 +62,14 @@ public class Course {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<Student> getStudentList() {
+        return studentList;
+    }
+
+    public void setStudentList(List<Student> studentList) {
+        this.studentList = studentList;
     }
 
     @Override
