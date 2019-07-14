@@ -1,5 +1,6 @@
 package com.ali.controllers;
 
+import com.ali.configs.Configuration;
 import com.ali.exceptions.CourseNotFoundException;
 import com.ali.models.Student;
 import com.ali.services.repository.StudentRepository;
@@ -18,6 +19,9 @@ public class StudentController {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private Configuration configuration;
 
     @GetMapping("/students")
     public List<Student> getStudnets() {
@@ -44,5 +48,10 @@ public class StudentController {
     @DeleteMapping("/students/{id}")
     public void deleteStudnet(@PathVariable Integer id) {
         studentRepository.deleteById(id);
+    }
+
+    @GetMapping("/maxstudents")
+    public int getMax(){
+        return configuration.getMax();
     }
 }
